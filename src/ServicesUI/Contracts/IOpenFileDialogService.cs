@@ -1,4 +1,4 @@
-﻿namespace DividendCalculation.Services.Contracts
+﻿namespace DividendStatTool.Services.Contracts
 {
     public interface IOpenFileDialogService
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DividendCalculation.Views
+namespace DividendStatTool.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

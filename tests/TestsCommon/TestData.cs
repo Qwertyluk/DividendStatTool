@@ -4,10 +4,11 @@
     {
         private static readonly string TestResourcesFolderName = "testData";
 
-        public static string CombineWithResourceDirectory(string path)
+        public static string GetFullResourceDirectory(string relativePath)
         {
-            return Path.Combine(GetResourceDirectory(), path);
+            return Path.Combine(GetResourceDirectory(), relativePath);
         }
+
         private static string GetResourceDirectory()
         {
             DirectoryInfo? currentDirectory = new DirectoryInfo(Directory.GetCurrentDirectory());
@@ -18,7 +19,7 @@
 
             if (currentDirectory == null)
             {
-                throw new InvalidOperationException("Can't find resource directory");
+                throw new InvalidOperationException("Can't find resource directory.");
             }
 
             return Path.Combine(currentDirectory.FullName, TestResourcesFolderName);

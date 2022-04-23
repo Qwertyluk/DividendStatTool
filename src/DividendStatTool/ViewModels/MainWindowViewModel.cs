@@ -1,19 +1,24 @@
-﻿using DividendCalculation.Commands.Factories.Contracts;
+﻿using DividendStatTool.Commands.CommandProviders.Contracts;
+using DividendStatTool.Commands.Factories.Contracts;
 using DividendStatTool.ViewModels.Contracts;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace DividendCalculation.ViewModels
+namespace DividendStatTool.ViewModels
 {
     internal class MainWindowViewModel : IMainWindowViewModel
     {
-        public ICommand ButtonFetchFromFileCommand { get; }
+        public ICommand ButtonFetchFromFileCommand { get; set; }
+        public ICommand ButtonFetchFromXTBCommand { get; set; }
 
         public BindingList<string> Symbols { get; } = new BindingList<string>();
 
-        public MainWindowViewModel(IFetchSymbolsFromFileCommandFactory populateSymbolsCommandFactory)
+        public MainWindowViewModel(
+            IProviderCommandSymbolsFromFile commandSymbolsFromFileProvider,
+            IProviderCommandSymbolsFromXTB commandSymbolsFromXTBProvider)
         {
-            ButtonFetchFromFileCommand = populateSymbolsCommandFactory.GetFetchFromFileCommand(this);
+            ButtonFetchFromFileCommand = commandSymbolsFromFileProvider.GetCommandSymbolsFromFile(this);
+            ButtonFetchFromXTBCommand = commandSymbolsFromXTBProvider.GetCommandSymbolsFromXTB(this);
         }
     }
 }

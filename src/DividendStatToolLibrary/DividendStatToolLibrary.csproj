@@ -8,7 +8,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\CommonUI\CommonUI.csproj" />
+		<ProjectReference Include="..\Common\Common.csproj" />
 		<ProjectReference Include="..\ServicesUI\ServicesUI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="xAPI">
+	    <HintPath>..\..\lib\xAPI.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 </Project>
