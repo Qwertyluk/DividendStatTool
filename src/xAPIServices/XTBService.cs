@@ -1,7 +1,9 @@
-﻿using xAPI.Commands;
+﻿using Common.Extensions;
+using xAPI.Commands;
 using xAPI.Responses;
 using xAPI.Sync;
 using xAPIServices.Contracts;
+using xAPIServices.Enums;
 using xAPIServices.Exceptions;
 
 namespace xAPIServices
@@ -30,11 +32,11 @@ namespace xAPIServices
             }
         }
 
-        public IEnumerable<string> GetSymbols(string groupName)
+        public IEnumerable<string> GetSymbols(SymbolsGroupName groupName)
         {
             AllSymbolsResponse allSymbolsResponse = APICommandFactory.ExecuteAllSymbolsCommand(connector, true);
             return allSymbolsResponse.SymbolRecords
-                .Where(x => x.GroupName == groupName)
+                .Where(x => x.GroupName == groupName.GetDescription())
                 .Select(x => x.Symbol);
         }
     }

@@ -4,6 +4,7 @@ using DividendStatTool.ViewModels.Contracts;
 using DividendStatToolLibrary.Contracts;
 using System.Collections.Generic;
 using xAPIServices.Contracts;
+using xAPIServices.Enums;
 using xAPIServices.Exceptions;
 
 namespace DividendStatTool.Commands
@@ -35,7 +36,7 @@ namespace DividendStatTool.Commands
             {
                 if (TryLogin(uc))
                 {
-                    IEnumerable<string> symbolsFromXTB = xtbService.GetSymbols("US");
+                    IEnumerable<string> symbolsFromXTB = xtbService.GetSymbols(SymbolsGroupName.US);
                     IEnumerable<string> filteredSymbols = filter.Filter(symbolsFromXTB);
                     SetViewModelSymbols(filteredSymbols);
                 }

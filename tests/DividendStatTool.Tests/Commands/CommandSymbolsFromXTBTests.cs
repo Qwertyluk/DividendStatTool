@@ -8,6 +8,7 @@ using FluentAssertions.Execution;
 using Moq;
 using System.ComponentModel;
 using xAPIServices.Contracts;
+using xAPIServices.Enums;
 using xAPIServices.Exceptions;
 using Xunit;
 
@@ -36,9 +37,14 @@ namespace DividendStatTool.Tests.Commands
         {
             // Arrange
             mockViewModel.Setup(m => m.Symbols).Returns(new BindingList<string>());
-            mockUserCredentials.Setup(m => m.GetUserCredentials()).Returns(new UserCredentials("testUserName", "testPassword"));
+            UserCredentials uc = new UserCredentials()
+            {
+                UserName = "testUserName",
+                Password = "testPassword"
+            };
+            mockUserCredentials.Setup(m => m.GetUserCredentials()).Returns(uc);
             BindingList<string> receivedSymbols = new BindingList<string>() { "testReceived1", "testReceived2" };
-            mockXTBService.Setup(m => m.GetSymbols("US")).Returns(receivedSymbols);
+            mockXTBService.Setup(m => m.GetSymbols(SymbolsGroupName.US)).Returns(receivedSymbols);
             BindingList<string> filteredSymbols = new BindingList<string>() { "testFiltered1", "testFiltered2" };
             mockFilter.Setup(m => m.Filter(receivedSymbols)).Returns(filteredSymbols);
             CommandSymbolsFromXTB uut = GetUUT();
@@ -58,7 +64,12 @@ namespace DividendStatTool.Tests.Commands
             mockViewModel.SetupGet(m => m.Symbols).Returns(initialSymbols);
             string userName = "testUserName";
             string password = "testPassword";
-            mockUserCredentials.Setup(m => m.GetUserCredentials()).Returns(new UserCredentials(userName, password));
+            UserCredentials uc = new UserCredentials()
+            {
+                UserName = userName,
+                Password = password
+            };
+            mockUserCredentials.Setup(m => m.GetUserCredentials()).Returns(uc);
             mockXTBService.Setup(m => m.Login(userName, password)).Throws<XTBLoginException>();
             CommandSymbolsFromXTB uut = GetUUT();
 

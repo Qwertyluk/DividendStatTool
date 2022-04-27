@@ -2,7 +2,7 @@
 
 namespace xAPIServices.Enums
 {
-    public enum SymbolGroupName
+    public enum SymbolsGroupName
     {
         [Description("US")]
         US

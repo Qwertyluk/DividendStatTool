@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using xAPIServices.Enums;
 using xAPIServices.Exceptions;
 using xAPIServices.Tests.TestDataProviders;
 using Xunit;
@@ -38,7 +39,7 @@ namespace xAPIServices.Tests
             uut.Login(uc.UserName, uc.Password);
 
             // Act
-            IEnumerable<string> symbols = uut.GetSymbols("US");
+            IEnumerable<string> symbols = uut.GetSymbols(SymbolsGroupName.US);
 
             // Assert
             symbols.Should().NotBeEmpty();
