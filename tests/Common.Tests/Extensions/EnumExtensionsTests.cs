@@ -3,7 +3,7 @@ using FluentAssertions;
 using System.ComponentModel;
 using Xunit;
 
-namespace Common.Tests
+namespace Common.Tests.Extensions
 {
     public class EnumExtensionsTests
     {
