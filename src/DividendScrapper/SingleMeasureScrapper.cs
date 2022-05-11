@@ -1,6 +1,5 @@
 ﻿using DividendScrapper.Contracts;
 using DividendScrapper.Data;
-using HtmlAgilityPack;
 
 namespace DividendScrapper
 {
@@ -23,9 +22,9 @@ namespace DividendScrapper
             this.friendlyName = friendlyName;
         }
 
-        public Measurement ScrapMeasure(HtmlDocument htmlDoc)
+        public Measurement ScrapMeasure()
         {
-            string scrappedText = textScrapper.GetScrappedText(htmlDoc);
+            string scrappedText = textScrapper.GetScrappedText();
 
             if (validate(scrappedText))
             {

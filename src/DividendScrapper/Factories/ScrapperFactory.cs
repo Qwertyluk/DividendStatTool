@@ -19,7 +19,7 @@ namespace DividendScrapper
 
         public Scrapper GetScrapper(string companySymbol)
         {
-            return new Scrapper(_htmlDocProvider.GetHtmlDocument(companySymbol), _singleScrappersFactory.GetScrappers());
+            return new Scrapper(_singleScrappersFactory.GetScrappers(_htmlDocProvider.GetHtmlDocument(companySymbol)));
         }
     }
 }

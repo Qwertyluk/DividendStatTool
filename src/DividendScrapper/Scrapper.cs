@@ -1,17 +1,14 @@
 ﻿using DividendScrapper.Contracts;
 using DividendScrapper.Data;
-using HtmlAgilityPack;
 
 namespace DividendScrapper
 {
     public class Scrapper
     {
-        private readonly HtmlDocument htmlDoc;
         private readonly ISingleMeasureScrapper[] scrappers;
 
-        internal Scrapper(HtmlDocument htmlDoc, ISingleMeasureScrapper[] scrappers)
+        internal Scrapper(ISingleMeasureScrapper[] scrappers)
         {
-            this.htmlDoc = htmlDoc;
             this.scrappers = scrappers;
         }
 
@@ -20,7 +17,7 @@ namespace DividendScrapper
             Measurement[] measurements = new Measurement[scrappers.Length];
             for (int i = 0; i < scrappers.Length; i++)
             {
-                measurements[i] = scrappers[i].ScrapMeasure(htmlDoc);
+                measurements[i] = scrappers[i].ScrapMeasure();
             }
 
             return measurements;
