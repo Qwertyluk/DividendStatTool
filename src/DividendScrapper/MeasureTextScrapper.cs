@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using DividendScrapper.Exceptions;
+using HtmlAgilityPack;
 
 namespace DividendScrapper
 {
@@ -15,7 +16,11 @@ namespace DividendScrapper
 
         public string GetScrappedText()
         {
-            return htmlDoc.DocumentNode.SelectSingleNode($"//table/tr/td[text()='{paramName}']/following-sibling::td[1]").InnerText;
+            return htmlDoc
+                .DocumentNode
+                .SelectSingleNode($"//table/tr/td[text()='{paramName}']/following-sibling::td[1]")
+                ?.InnerText
+                ?? throw new TextScrapException("Can't find node.");
         }
     }
 }

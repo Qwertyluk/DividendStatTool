@@ -1,11 +1,14 @@
 ﻿using CommonUI;
 using CommonUI.Contracts;
 using DividendScrapper;
+using DividendScrapper.Data;
+using DividendScrapper.Exceptions;
 using DividendScrapper.Factories.Contracts;
 using DividendStatTool.Data;
 using DividendStatTool.ViewModels.Contracts;
 using DividendStatToolLibrary;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace DividendStatTool.Commands
@@ -39,10 +42,19 @@ namespace DividendStatTool.Commands
                             return;
                         }
 
-                        var scrapper = scrapperFactory.GetScrapper(symbol);
-                        var results = scrapper.Scrap();
+                        Scrapper scrapper = scrapperFactory.GetScrapper(symbol);
+                        Measurement[] results = Array.Empty<Measurement>();
+                        List<string> notFoundSymbols = new List<string>();
+                        try
+                        {
+                            results = scrapper.Scrap();
+                        }
+                        catch (TextScrapException)
+                        {
+                            notFoundSymbols.Add(symbol);
+                        }
                         symbolMeasurements[i++] = new SymbolMeasurement(symbol, results);
-                        var progress = (int)(100.0 * i / viewModel.Symbols.Count);
+                        int progress = (int)(100.0 * i / viewModel.Symbols.Count);
                         worker.ReportProgress(progress);
                     }
                     e.Result = symbolMeasurements;

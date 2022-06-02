@@ -1,9 +1,11 @@
 ﻿using DividendScrapper.Contracts;
 using DividendScrapper.Data;
+using DividendScrapper.Exceptions;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using HtmlAgilityPack;
 using Moq;
+using System;
 using TestsCommon;
 using Xunit;
 
@@ -68,6 +70,20 @@ namespace DividendScrapper.Tests
                 measures.Should().Contain(m => m.Name == CompanyMeasurementNames.PricePerEarnings);
                 measures.Should().Contain(m => m.Name == CompanyMeasurementNames.ReturnOnEquity);
             }
+        }
+
+        [Fact]
+        public void Scrap_FromWeb_ShouldThrowException_WhenSymbolDoesntExist()
+        {
+            // Arrange
+            ScrapperFactory scrapperFactory = new ScrapperFactory();
+            Scrapper scrapper = scrapperFactory.GetScrapper("INVALID_SYMBOL");
+
+            // Act
+            Action act = () => scrapper.Scrap();
+
+            // Assert
+            act.Should().Throw<TextScrapException>().WithMessage("Can't find node.");
         }
 
         private HtmlDocument GetHtmlDocFromFile(string filePath)
