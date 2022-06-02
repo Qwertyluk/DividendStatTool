@@ -30,7 +30,7 @@ namespace DividendScrapper
                     CompanyMeasurementNames.DividendYield),
                 new SingleMeasureScrapper(
                     new MeasureTextScrapper(htmlDoc, "Market Cap"),
-                    s => s.BillionAnnotationToDouble(),
+                    s => s.NumberWithAbbreviationToDouble(),
                     isValid,
                     CompanyMeasurementNames.MarketCapitalization),
                 new SingleMeasureScrapper(

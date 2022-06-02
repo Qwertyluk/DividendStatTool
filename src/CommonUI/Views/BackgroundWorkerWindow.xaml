@@ -1,0 +1,25 @@
+﻿<Window x:Class="CommonUI.Views.BackgroundWorkerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CommonUI.Views"
+        xmlns:xc="clr-namespace:CommonUI.Helpers"
+        mc:Ignorable="d"
+        xc:DialogCloser.DialogResult="{Binding DialogResult}"
+        Title="BackgroundWorkerWindow" Height="150" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ProgressBar Height="35" Grid.Row="0" Margin="5 5 5 5" Value="{Binding Progress, Mode=OneWay}"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Margin="5 5 5 5" Command="{Binding CancelCommand}">Cancel</Button>
+        </Grid>
+    </Grid>
+</Window>

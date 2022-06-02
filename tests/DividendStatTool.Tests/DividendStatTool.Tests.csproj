@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\DividendStatTool\DividendStatTool.csproj" />
+    <ProjectReference Include="..\TestsCommon\TestsCommon.csproj" />
   </ItemGroup>
 
 </Project>

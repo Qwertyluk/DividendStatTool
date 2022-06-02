@@ -7,7 +7,7 @@ using xAPIServices.Contracts;
 
 namespace DividendStatTool.Commands.CommandProviders
 {
-    internal class ProviderCommandSymbolsFromXTB : IProviderCommandSymbolsFromXTB
+    internal class ProviderCommandSymbolsFromXTB : IMainWindowCommandProvider
     {
         private readonly IUserCredentialsProvider userCredentialsProvider;
         private readonly IXTBService xtbService;
@@ -26,7 +26,7 @@ namespace DividendStatTool.Commands.CommandProviders
             this.messageHandler = messageHandler;
         }
 
-        public ICommand GetCommandSymbolsFromXTB(IMainWindowViewModel viewModel)
+        public ICommand GetCommand(IMainWindowViewModel viewModel)
         {
             return new CommandSymbolsFromXTB(viewModel, userCredentialsProvider, xtbService, filter, messageHandler);
         }

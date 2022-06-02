@@ -1,8 +1,9 @@
 ﻿using DividendScrapper.Contracts;
+using DividendScrapper.Factories.Contracts;
 
 namespace DividendScrapper
 {
-    public class ScrapperFactory
+    public class ScrapperFactory : IScrapperFactory
     {
         private readonly IHtmlDocProvider _htmlDocProvider;
         private readonly SingleScrappersFactory _singleScrappersFactory;

@@ -9,7 +9,7 @@ using xAPIServices.Exceptions;
 
 namespace DividendStatTool.Commands
 {
-    internal class CommandSymbolsFromXTB : CommandSymbols
+    internal class CommandSymbolsFromXTB : CommandPopulateSymbols
     {
         private readonly IUserCredentialsProvider userCredentialsProvider;
         private readonly IXTBService xtbService;

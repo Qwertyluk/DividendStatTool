@@ -2,6 +2,7 @@
 {
     public interface IMessageHandler
     {
-        public void HandleError(string warningType, string warningMessage);
+        public void HandleError(string caption, string warningMessage);
+        public void HandleInfo(string caption, string infoMessage);
     }
 }

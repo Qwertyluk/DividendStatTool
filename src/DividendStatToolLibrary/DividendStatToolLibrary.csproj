@@ -10,6 +10,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CommonUI\CommonUI.csproj" />
 		<ProjectReference Include="..\Common\Common.csproj" />
+		<ProjectReference Include="..\DividendScrapper\DividendScrapper.csproj" />
 		<ProjectReference Include="..\ServicesUI\ServicesUI.csproj" />
 	</ItemGroup>
 

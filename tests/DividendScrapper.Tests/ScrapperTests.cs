@@ -15,6 +15,7 @@ namespace DividendScrapper.Tests
         [Trait("Category", "Integration")]
         [InlineData("finvizAAPL.html", 1.78, 0.142, 0.0058, 2537_350_000_000, 25.57, 1.529)]
         [InlineData("finvizTSLA.html", 0.14, 0, 0, 803_450_000_000, 108.14, 0.289)]
+        [InlineData("finvizGEO.html", 2.89, 0, 0, 863_100_000, 13.04, 0.065)]
         public void Scrap_FromFile_ShouldScrap(
             string fileName,
             double expectedDPE,
@@ -36,15 +37,12 @@ namespace DividendScrapper.Tests
             Measurement[] measures = scrapper.Scrap();
 
             // Assert
-            using (new AssertionScope())
-            {
-                measures.Should().ContainEquivalentOf(new Measurement("Debt Per Equity", expectedDPE));
-                measures.Should().ContainEquivalentOf(new Measurement("Dividend Payout Ratio", expectedDPR));
-                measures.Should().ContainEquivalentOf(new Measurement("Dividend Yield", expectedDY));
-                measures.Should().ContainEquivalentOf(new Measurement("Market Capitalization", expectedMC));
-                measures.Should().ContainEquivalentOf(new Measurement("Price Per Earnings", expectedPPE));
-                measures.Should().ContainEquivalentOf(new Measurement("Return On Equity", expectedROE));
-            }
+            measures.Should().ContainEquivalentOf(new Measurement("Debt Per Equity", expectedDPE));
+            measures.Should().ContainEquivalentOf(new Measurement("Dividend Payout Ratio", expectedDPR));
+            measures.Should().ContainEquivalentOf(new Measurement("Dividend Yield", expectedDY));
+            measures.Should().ContainEquivalentOf(new Measurement("Market Capitalization", expectedMC));
+            measures.Should().ContainEquivalentOf(new Measurement("Price Per Earnings", expectedPPE));
+            measures.Should().ContainEquivalentOf(new Measurement("Return On Equity", expectedROE));
         }
 
         [Theory]

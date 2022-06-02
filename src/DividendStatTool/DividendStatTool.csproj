@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Common\Common.csproj" />
+		<ProjectReference Include="..\DividendScrapper\DividendScrapper.csproj" />
 		<ProjectReference Include="..\DividendStatToolLibrary\DividendStatToolLibrary.csproj" />
 		<ProjectReference Include="..\xAPIServices\xAPIServices.csproj" />
 	</ItemGroup>

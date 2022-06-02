@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace DividendStatTool.Commands
 {
-    internal class CommandSymbolsFromFile : CommandSymbols
+    internal class CommandSymbolsFromFile : CommandPopulateSymbols
     {
         private readonly IOpenFileDialogService openFileDialog;
         private readonly IFileReader fileReader;

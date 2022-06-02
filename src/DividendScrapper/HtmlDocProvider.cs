@@ -6,11 +6,9 @@ namespace DividendScrapper
 {
     internal class HtmlDocProvider : IHtmlDocProvider
     {
-        private readonly string baseHtml = @"https://finviz.com/quote.ashx";
-
         public HtmlDocument GetHtmlDocument(string symbol)
         {
-            Uri uriWithParameter = new Uri(baseHtml).AddParameter("t", symbol);
+            Uri uriWithParameter = new Uri(StringLiterals.BaseHtml).AddParameter("t", symbol);
             return new HtmlWeb().Load(uriWithParameter.AbsoluteUri);
         }
     }

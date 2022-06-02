@@ -3,8 +3,8 @@ using System.Windows.Input;
 
 namespace DividendStatTool.Commands.CommandProviders.Contracts
 {
-    internal interface IProviderCommandSymbolsFromXTB
+    internal interface IMainWindowCommandProvider
     {
-        ICommand GetCommandSymbolsFromXTB(IMainWindowViewModel viewModel);
+        ICommand GetCommand(IMainWindowViewModel viewModel);
     }
 }

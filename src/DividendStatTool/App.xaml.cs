@@ -1,7 +1,9 @@
 ﻿using Common;
 using CommonUI;
+using DividendScrapper;
 using DividendStatTool.Commands.CommandProviders;
 using DividendStatTool.Commands.Factories;
+using DividendStatTool.Infrastructure;
 using DividendStatTool.Services;
 using DividendStatTool.ViewModels;
 using DividendStatTool.Views;
@@ -27,11 +29,18 @@ namespace DividendStatTool
                         new OpenFileDialogService(),
                         new FileReader(),
                         new FilterSymbolsFromFile()),
+                    new ProviderCommandSymbolsWriteToFile(
+                        new OpenFileDialogService(),
+                        new SymbolsFileWriter(),
+                        new MessageBoxWrapper()),
                     new ProviderCommandSymbolsFromXTB(
                         new UserCredentialsWindowProvider(),
                         new XTBService(),
                         new FilterSymbolsFromXTB(),
-                        new MessageBoxWrapper()))
+                        new MessageBoxWrapper()),
+                    new ProviderCommandRunCalculations(
+                        new BackgroundWorkerWindowWrapper(),
+                        new ScrapperFactory()))
             };
             mainWindow.Show();
         }

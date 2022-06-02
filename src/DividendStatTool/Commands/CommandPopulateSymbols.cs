@@ -6,11 +6,11 @@ using System.Windows.Input;
 
 namespace DividendStatTool.Commands
 {
-    internal abstract class CommandSymbols : ICommand
+    internal abstract class CommandPopulateSymbols : ICommand
     {
         private readonly IMainWindowViewModel viewModel;
 
-        public CommandSymbols(IMainWindowViewModel viewModel)
+        public CommandPopulateSymbols(IMainWindowViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
