@@ -1,25 +1,31 @@
 ﻿using DividendScrapper.Contracts;
 using DividendScrapper.Data;
+using DividendScrapper.Enums;
+using DividendScrapper.Factories.Contracts;
 
 namespace DividendScrapper
 {
     internal class SingleMeasureScrapper : ISingleMeasureScrapper
     {
-        private readonly MeasureTextScrapper textScrapper;
+        private readonly IMeasureTextScrapper textScrapper;
         private readonly Func<string, double> convert;
         private readonly Func<string, bool> validate;
-        private readonly string friendlyName;
+        private readonly IMeasurementFactory measurementFactory;
+
+        public Factor Factor { get; private set; }
 
         public SingleMeasureScrapper(
-            MeasureTextScrapper textScrapper,
+            IMeasureTextScrapper textScrapper,
             Func<string, double> convert,
             Func<string, bool> validate,
-            string friendlyName)
+            Factor factor,
+            IMeasurementFactory measurementFactory)
         {
             this.textScrapper = textScrapper;
             this.convert = convert;
             this.validate = validate;
-            this.friendlyName = friendlyName;
+            Factor = factor;
+            this.measurementFactory = measurementFactory;
         }
 
         public Measurement ScrapMeasure()
@@ -29,10 +35,10 @@ namespace DividendScrapper
             if (validate(scrappedText))
             {
                 double scrappedDPE = convert(scrappedText);
-                return new Measurement(friendlyName, scrappedDPE);
+                return measurementFactory.CreateMeasurement(Factor, scrappedDPE);
             }
 
-            return new Measurement(friendlyName, 0);
+            return measurementFactory.CreateMeasurement(Factor, 0);
         }
     }
 }

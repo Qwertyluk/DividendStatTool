@@ -1,4 +1,5 @@
 ﻿using DividendScrapper.Contracts;
+using DividendScrapper.Factories;
 using DividendScrapper.Factories.Contracts;
 
 namespace DividendScrapper
@@ -10,7 +11,11 @@ namespace DividendScrapper
 
         public ScrapperFactory() : this(new HtmlDocProvider()) { }
 
-        internal ScrapperFactory(IHtmlDocProvider htmlDocProvider) : this(htmlDocProvider, new SingleScrappersFactory()) { }
+        internal ScrapperFactory(IHtmlDocProvider htmlDocProvider)
+            : this(htmlDocProvider, new SingleScrappersFactory(new MeasureTextScrapperFactory())) { }
+
+        internal ScrapperFactory(IHtmlDocProvider htmlDocProvider, IMeasureTextScrapperFactory measureTextScrapperFactory)
+            : this(htmlDocProvider, new SingleScrappersFactory(measureTextScrapperFactory)) { }
 
         internal ScrapperFactory(IHtmlDocProvider htmlDocProvider, SingleScrappersFactory singleScrappersFactory)
         {
@@ -18,7 +23,7 @@ namespace DividendScrapper
             _singleScrappersFactory = singleScrappersFactory;
         }
 
-        public Scrapper GetScrapper(string companySymbol)
+        public IScrapper GetScrapper(string companySymbol)
         {
             return new Scrapper(_singleScrappersFactory.GetScrappers(_htmlDocProvider.GetHtmlDocument(companySymbol)));
         }

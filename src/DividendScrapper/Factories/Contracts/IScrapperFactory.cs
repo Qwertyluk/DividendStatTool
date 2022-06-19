@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DividendScrapper.Contracts;
 
 namespace DividendScrapper.Factories.Contracts
 {
     public interface IScrapperFactory
     {
-        Scrapper GetScrapper(string companySymbol);
+        IScrapper GetScrapper(string companySymbol);
     }
 }

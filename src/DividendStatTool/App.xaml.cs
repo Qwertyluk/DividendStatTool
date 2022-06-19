@@ -40,7 +40,9 @@ namespace DividendStatTool
                         new MessageBoxWrapper()),
                     new ProviderCommandRunCalculations(
                         new BackgroundWorkerWindowWrapper(),
-                        new ScrapperFactory()))
+                        new SymbolsScrapper(),
+                        new SymbolsFilter(),
+                        new SymbolsRanking()))
             };
             mainWindow.Show();
         }

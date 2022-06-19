@@ -1,13 +1,7 @@
-﻿using CommonUI;
-using CommonUI.Contracts;
-using DividendScrapper;
-using DividendScrapper.Data;
-using DividendScrapper.Exceptions;
-using DividendScrapper.Factories.Contracts;
-using DividendStatTool.Data;
+﻿using CommonUI.Contracts;
+using DividendScrapper.Contracts;
 using DividendStatTool.ViewModels.Contracts;
-using DividendStatToolLibrary;
-using System;
+using DividendStatToolLibrary.Data;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -16,12 +10,21 @@ namespace DividendStatTool.Commands
     internal class CommandRunCalculations : CommandExecutableWhenSymbolsExist
     {
         private readonly IBackgroundWorkerWindowWrapper bwWindow;
-        private readonly IScrapperFactory scrapperFactory;
+        private readonly ISymbolsScrapper symbolsScrapper;
+        private readonly ISymbolMeasurementsFilter symbolsFilter;
+        private readonly ISymbolsRanking symbolsRanking;
 
-        public CommandRunCalculations(IMainWindowViewModel viewModel, IBackgroundWorkerWindowWrapper bwWindow, IScrapperFactory scrapperFactory) : base(viewModel)
+        public CommandRunCalculations(
+            IMainWindowViewModel viewModel,
+            IBackgroundWorkerWindowWrapper bwWindow,
+            ISymbolsScrapper symbolsScrapper,
+            ISymbolMeasurementsFilter symbolsFilter,
+            ISymbolsRanking symbolsRanking) : base(viewModel)
         {
             this.bwWindow = bwWindow;
-            this.scrapperFactory = scrapperFactory;
+            this.symbolsScrapper = symbolsScrapper;
+            this.symbolsFilter = symbolsFilter;
+            this.symbolsRanking = symbolsRanking;
         }
 
         #region ICommand
@@ -32,40 +35,29 @@ namespace DividendStatTool.Commands
             {
                 if (sender is BackgroundWorker worker)
                 {
-                    SymbolMeasurement[] symbolMeasurements = new SymbolMeasurement[viewModel.Symbols.Count];
-                    int i = 0;
-                    foreach (var symbol in viewModel.Symbols)
+                    symbolsScrapper.CallBackProgress = progress => worker.ReportProgress(progress);
+                    symbolsScrapper.CallBackCancel = () =>
                     {
                         if (worker.CancellationPending)
                         {
                             e.Cancel = true;
-                            return;
+                            return true;
                         }
 
-                        Scrapper scrapper = scrapperFactory.GetScrapper(symbol);
-                        Measurement[] results = Array.Empty<Measurement>();
-                        List<string> notFoundSymbols = new List<string>();
-                        try
-                        {
-                            results = scrapper.Scrap();
-                        }
-                        catch (TextScrapException)
-                        {
-                            notFoundSymbols.Add(symbol);
-                        }
-                        symbolMeasurements[i++] = new SymbolMeasurement(symbol, results);
-                        int progress = (int)(100.0 * i / viewModel.Symbols.Count);
-                        worker.ReportProgress(progress);
-                    }
-                    e.Result = symbolMeasurements;
+                        return false;
+                    };
+                    e.Result = symbolsScrapper.GetSymbolsMeasurements(viewModel.Symbols);
                 }
             });
 
-            SymbolMeasurement[] measurementResults = result as SymbolMeasurement[] ?? Array.Empty<SymbolMeasurement>();
+            if (result is IEnumerable<SymbolMeasurement> measurements)
+            {
+                IEnumerable<SymbolMeasurement> filteredMeasurements = symbolsFilter.Filter(measurements);
+                SortedList<int, SymbolMeasurement> rankedMeasuremenets = symbolsRanking.AssignRanks(filteredMeasurements);
+            }
 
-            // make ranking
+            // TODO: show results
 
-            // show results
         }
 
         #endregion

@@ -1,9 +1,10 @@
 ﻿using DividendScrapper.Contracts;
 using DividendScrapper.Data;
+using DividendScrapper.Enums;
 
 namespace DividendScrapper
 {
-    public class Scrapper
+    public class Scrapper : IScrapper
     {
         private readonly ISingleMeasureScrapper[] scrappers;
 
@@ -21,6 +22,12 @@ namespace DividendScrapper
             }
 
             return measurements;
+        }
+
+        public Measurement Scrap(Factor factor)
+        {
+            var scrapper = scrappers.First(s => s.Factor == factor);
+            return scrapper.ScrapMeasure();
         }
     }
 }

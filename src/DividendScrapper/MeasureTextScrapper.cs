@@ -1,9 +1,10 @@
-﻿using DividendScrapper.Exceptions;
+﻿using DividendScrapper.Contracts;
+using DividendScrapper.Exceptions;
 using HtmlAgilityPack;
 
 namespace DividendScrapper
 {
-    internal class MeasureTextScrapper
+    internal class MeasureTextScrapper : IMeasureTextScrapper
     {
         private readonly HtmlDocument htmlDoc;
         private readonly string paramName;

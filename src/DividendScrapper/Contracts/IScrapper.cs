@@ -3,9 +3,9 @@ using DividendScrapper.Enums;
 
 namespace DividendScrapper.Contracts
 {
-    internal interface ISingleMeasureScrapper
+    public interface IScrapper
     {
-        Factor Factor { get; }
-        Measurement ScrapMeasure();
+        Measurement[] Scrap();
+        Measurement Scrap(Factor factor);
     }
 }
