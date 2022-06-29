@@ -6,13 +6,13 @@ namespace DividendStatToolLibrary.Data
     {
         public string SymbolName { get; }
 
-        public Measurement[] Measuremenets { get; }
-        public int NumberOfMeasurements => Measuremenets.Length;
+        public Measurement[] Measurements { get; }
+        public int NumberOfMeasurements => Measurements.Length;
 
         public SymbolMeasurement(string symbolName, Measurement[] measuremenets)
         {
             SymbolName = symbolName;
-            Measuremenets = measuremenets;
+            Measurements = measuremenets;
         }
 
         public override string ToString()

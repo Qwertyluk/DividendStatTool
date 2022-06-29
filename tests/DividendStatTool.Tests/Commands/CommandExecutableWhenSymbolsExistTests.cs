@@ -71,7 +71,7 @@ namespace DividendStatTool.Tests.Commands
         {
             return new CommandExecutableWhenSymbolsExist[]
             {
-                new CommandRunCalculations(viewModel, null, null),
+                new CommandRunCalculations(viewModel, null, null, null, null),
                 new CommandSymbolsWriteToFile(viewModel, null, null, null)
             };
         }

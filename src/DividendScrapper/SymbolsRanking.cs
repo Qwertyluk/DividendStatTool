@@ -24,11 +24,11 @@ namespace DividendStatToolLibrary
 
             for (int i = 0; i < measurements.ElementAt(0).NumberOfMeasurements; i++)
             {
-                var sortedSymbols = measurements.OrderBy(m => m.Measuremenets[i]);
+                var sortedSymbols = measurements.OrderBy(m => m.Measurements[i]);
 
                 for (int j = 0; j < sortedSymbols.Count(); j++)
                 {
-                    dict[sortedSymbols.ElementAt(i)] += j;
+                    dict[sortedSymbols.ElementAt(j)] += j;
                 }
             }
 
@@ -52,7 +52,7 @@ namespace DividendStatToolLibrary
             var ranks = new SortedList<int, SymbolMeasurement>();
             for (int i = 0; i < scoreBoard.Count(); i++)
             {
-                ranks.Add(i, scoreBoard.ElementAt(i).Key);
+                ranks.Add(i + 1, scoreBoard.ElementAt(i).Key);
             }
 
             return ranks;

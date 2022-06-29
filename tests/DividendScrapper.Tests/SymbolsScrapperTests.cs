@@ -56,7 +56,7 @@ namespace DividendScrapper.Tests
             IEnumerable<SymbolMeasurement> output = uut.GetSymbolsMeasurements(symbolNames);
 
             // Assert
-            output.Should().Contain(s => s.Measuremenets == scrappedMeasurement);
+            output.Should().Contain(s => s.Measurements == scrappedMeasurement);
         }
 
         [Fact]

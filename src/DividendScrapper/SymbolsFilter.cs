@@ -7,7 +7,7 @@ namespace DividendScrapper
     {
         public IEnumerable<SymbolMeasurement> Filter(IEnumerable<SymbolMeasurement> symbolMeasuremenets)
         {
-            return symbolMeasuremenets.Where(m => m.Measuremenets.All(m => m.IsValid));
+            return symbolMeasuremenets.Where(m => m.Measurements.All(m => m.IsValid));
         }
     }
 }
