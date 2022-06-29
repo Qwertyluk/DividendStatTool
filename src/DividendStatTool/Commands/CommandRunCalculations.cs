@@ -1,4 +1,5 @@
 ﻿using CommonUI.Contracts;
+using CommonUI.Factories.Contracts;
 using CommonUI.Views;
 using DividendScrapper.Contracts;
 using DividendStatTool.ViewModels.Contracts;
@@ -12,19 +13,19 @@ namespace DividendStatTool.Commands
 {
     internal class CommandRunCalculations : CommandExecutableWhenSymbolsExist
     {
-        private readonly IBackgroundWorkerWindowWrapper bwWindow;
+        private readonly IBackgroundWorkerWindowWrapperFactory bwWindowFactory;
         private readonly ISymbolsScrapper symbolsScrapper;
         private readonly ISymbolMeasurementsFilter symbolsFilter;
         private readonly ISymbolsRanking symbolsRanking;
 
         public CommandRunCalculations(
             IMainWindowViewModel viewModel,
-            IBackgroundWorkerWindowWrapper bwWindow,
+            IBackgroundWorkerWindowWrapperFactory bwWindowFactory,
             ISymbolsScrapper symbolsScrapper,
             ISymbolMeasurementsFilter symbolsFilter,
             ISymbolsRanking symbolsRanking) : base(viewModel)
         {
-            this.bwWindow = bwWindow;
+            this.bwWindowFactory = bwWindowFactory;
             this.symbolsScrapper = symbolsScrapper;
             this.symbolsFilter = symbolsFilter;
             this.symbolsRanking = symbolsRanking;
@@ -34,7 +35,7 @@ namespace DividendStatTool.Commands
 
         public override void Execute(object? parameter)
         {
-            object? result = bwWindow.GetResult((sender, e) =>
+            object? result = bwWindowFactory.GetWindow().GetResult((sender, e) =>
             {
                 if (sender is BackgroundWorker worker)
                 {

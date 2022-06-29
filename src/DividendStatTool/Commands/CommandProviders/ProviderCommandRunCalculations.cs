@@ -1,4 +1,5 @@
 ﻿using CommonUI.Contracts;
+using CommonUI.Factories.Contracts;
 using DividendScrapper.Contracts;
 using DividendScrapper.Factories.Contracts;
 using DividendStatTool.Commands.CommandProviders.Contracts;
@@ -9,18 +10,18 @@ namespace DividendStatTool.Commands.CommandProviders
 {
     internal class ProviderCommandRunCalculations : IMainWindowCommandProvider
     {
-        private readonly IBackgroundWorkerWindowWrapper bwWindowWrapper;
+        private readonly IBackgroundWorkerWindowWrapperFactory bwWindowWrapperFactory;
         private readonly ISymbolsScrapper symbolsScrapper;
         private readonly ISymbolMeasurementsFilter symbolsFilter;
         private readonly ISymbolsRanking symbolsRanking;
 
         public ProviderCommandRunCalculations(
-            IBackgroundWorkerWindowWrapper bwWindowWrapper,
+            IBackgroundWorkerWindowWrapperFactory bwWindowWrapperFactory,
             ISymbolsScrapper symbolsScrapper,
             ISymbolMeasurementsFilter symbolsFilter,
             ISymbolsRanking symbolsRanking)
         {
-            this.bwWindowWrapper = bwWindowWrapper;
+            this.bwWindowWrapperFactory = bwWindowWrapperFactory;
             this.symbolsScrapper = symbolsScrapper;
             this.symbolsFilter = symbolsFilter;
             this.symbolsRanking = symbolsRanking;
@@ -28,7 +29,7 @@ namespace DividendStatTool.Commands.CommandProviders
 
         public ICommand GetCommand(IMainWindowViewModel viewModel)
         {
-            return new CommandRunCalculations(viewModel, bwWindowWrapper, symbolsScrapper, symbolsFilter, symbolsRanking);
+            return new CommandRunCalculations(viewModel, bwWindowWrapperFactory, symbolsScrapper, symbolsFilter, symbolsRanking);
         }
     }
 }

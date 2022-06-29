@@ -1,5 +1,6 @@
 ﻿using Common;
 using CommonUI;
+using CommonUI.Factories;
 using DividendScrapper;
 using DividendStatTool.Commands.CommandProviders;
 using DividendStatTool.Commands.Factories;
@@ -39,7 +40,7 @@ namespace DividendStatTool
                         new FilterSymbolsFromXTB(),
                         new MessageBoxWrapper()),
                     new ProviderCommandRunCalculations(
-                        new BackgroundWorkerWindowWrapper(),
+                        new BackgroundWorkerWindowWrapperFactory(),
                         new SymbolsScrapper(),
                         new SymbolsFilter(),
                         new SymbolsRanking()))
