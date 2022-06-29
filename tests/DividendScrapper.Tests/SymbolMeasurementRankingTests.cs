@@ -67,7 +67,7 @@ namespace DividendScrapper.Tests
 
             // Act
             var assignedRanks = uut.AssignRanks(input);
-            assignedRanks.TryGetValue(0, out SymbolMeasurement? outputBetterSymbol);
+            assignedRanks.TryGetValue(1, out SymbolMeasurement? outputBetterSymbol);
 
             // Assert
             assignedRanks.Should().ContainValues(input);
