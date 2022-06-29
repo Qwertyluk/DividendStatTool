@@ -4,7 +4,7 @@ This repository contains the source code for a tool to scrap statistical data ab
 
 ### Overall information
 
-- The application was implemented to scrap data from [finviz](https://finviz.com/](https://finviz.com/).
+- The application was implemented to scrap data from [finviz](https://finviz.com/).
 
 - The application was implemented using:
   
@@ -14,7 +14,7 @@ This repository contains the source code for a tool to scrap statistical data ab
   
   - XUnit framework for tests
   
-  - Fluent Assertions for higher test readability
+  - Fluent Assertions for higher tests readability
   
   - xAPI library for communication with [XTB Broker](https://www.xtb.com/en)
 
@@ -44,7 +44,7 @@ This repository contains the source code for a tool to scrap statistical data ab
 
 - The user can download all symbols of US companies that exist in XTB broker.
   
-  - The user must have private account at XTB and provide his username and password to download existing symbols.
+  - The user must have personal account at XTB and provide his username and password to download existing symbols.
   
   - There is possibility to save downloaded symbols to a local file to avoid logging into the XTB service each time.
 
